@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://sealedjn.github.io/</id>
+    <title>SealedJn&apos;s Blog</title>
+    <updated>2023-02-24T03:19:53.175Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://sealedjn.github.io/"/>
+    <link rel="self" href="https://sealedjn.github.io/atom.xml"/>
+    <subtitle>分享&amp;发电</subtitle>
+    <logo>https://sealedjn.github.io/images/avatar.png</logo>
+    <icon>https://sealedjn.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2023, SealedJn&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[AFDX网络抖动的概念和理解]]></title>
+        <id>https://sealedjn.github.io/post/afdx-wang-luo-dou-dong-de-gai-nian-he-li-jie/</id>
+        <link href="https://sealedjn.github.io/post/afdx-wang-luo-dou-dong-de-gai-nian-he-li-jie/">
+        </link>
+        <updated>2023-02-22T10:13:34.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[端到端数据包延迟预测【论文收集+chatgpt问答】]]></title>
+        <id>https://sealedjn.github.io/post/duan-dao-duan-shu-ju-bao-yan-chi-yu-ce-lun-wen-shou-ji-chatgpt-wen-da/</id>
+        <link href="https://sealedjn.github.io/post/duan-dao-duan-shu-ju-bao-yan-chi-yu-ce-lun-wen-shou-ji-chatgpt-wen-da/">
+        </link>
+        <updated>2023-02-22T07:55:03.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ChatGPT+NewBing 国内试用（问题：Something went Wrong, Please try it agin)]]></title>
+        <id>https://sealedjn.github.io/post/chatgptnewbing-guo-nei-shi-yong-wen-ti-something-went-wrong-please-try-it-agin/</id>
+        <link href="https://sealedjn.github.io/post/chatgptnewbing-guo-nei-shi-yong-wen-ti-something-went-wrong-please-try-it-agin/">
+        </link>
+        <updated>2023-02-19T05:05:49.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[黑苹果Hackstoinsh-我与他的相逢、相识、相知]]></title>
+        <id>https://sealedjn.github.io/post/hei-ping-guo-hackstoinsh-wo-yu-ta-de-xiang-feng-xiang-shi-xiang-zhi/</id>
+        <link href="https://sealedjn.github.io/post/hei-ping-guo-hackstoinsh-wo-yu-ta-de-xiang-feng-xiang-shi-xiang-zhi/">
+        </link>
+        <updated>2023-02-15T17:21:39.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[线程池上的一名员工]]></title>
+        <id>https://sealedjn.github.io/post/xian-cheng-chi-shang-de-yi-ming-yuan-gong/</id>
+        <link href="https://sealedjn.github.io/post/xian-cheng-chi-shang-de-yi-ming-yuan-gong/">
+        </link>
+        <updated>2023-02-14T12:07:52.000Z</updated>
+    </entry>
+</feed>

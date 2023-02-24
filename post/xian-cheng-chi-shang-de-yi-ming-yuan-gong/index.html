@@ -1,0 +1,272 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>线程池上的一名员工 | SealedJn&#39;s Blog</title>
+<link rel="shortcut icon" href="https://sealedjn.github.io//favicon.ico?v=1677208782171">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://sealedjn.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="线程池上的一名员工 | SealedJn&#39;s Blog - Atom Feed" href="https://sealedjn.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="    /|    //| |                                                                                    
+   //|   // | |     ..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://sealedjn.github.io/">
+  <img class="avatar" src="https://sealedjn.github.io//images/avatar.png?v=1677208782171" alt="">
+  </a>
+  <h1 class="site-title">
+    SealedJn&#39;s Blog
+  </h1>
+  <p class="site-description">
+    分享&发电
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              线程池上的一名员工
+            </h2>
+            <div class="post-info">
+              <span>
+                2023-02-14
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+            </div>
+            
+              <img class="post-feature-image" src="https://sealedjn.github.io//post-images/xian-cheng-chi-shang-de-yi-ming-yuan-gong.gif" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <pre><code>    /|    //| |                                                                                    
+   //|   // | |     ___      __      ___         ( )  ___      ___               ___      ___      
+  // |  //  | |   //   ) ) //  ) ) //___) )     / / ((   ) ) ((   ) ) //   / / //___) ) ((   ) )   
+ //  | //   | |  //   / / //      //           / /   \ \      \ \    //   / / //         \ \       
+//   |//    | | ((___/ / //      ((____       / / //   ) ) //   ) ) ((___( ( ((____   //   ) )  // 
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+    _   __      ___      __      ___         / ___       __      ___                  //  ___      ___   /  ___      ___    
+  // ) )  ) ) //   ) ) //  ) ) //___) )     //\ \     //   ) ) //   ) ) //  / /  / / // //___) ) //   ) / //   ) ) //___) ) 
+ // / /  / / //   / / //      //           //  \ \   //   / / //   / / //  / /  / / // //       //   / / ((___/ / //        
+// / /  / / ((___/ / //      ((____       //    \ \ //   / / ((___/ / ((__( (__/ / // ((____   ((___/ /   //__   ((____     
+</code></pre>
+<h2 id="前言">前言</h2>
+<p>本文还称不上一本书，希望以后能变成一本完整的书</p>
+<p><strong>书中如有错误，请多多包涵，还望各位多多指正，感激不尽</strong></p>
+<h2 id="chapter-1-无知的线程与伟大的threadpoolexecutor">Chapter 1 无知的线程与伟大的ThreadPoolExecutor</h2>
+<p>我按照来自造物主的指示，走向一家我从没见过的线程池（也就是人类所说的公司）。</p>
+<figure data-type="image" tabindex="1"><img src="https://sealedjn.github.io//post-images/1676376643922.gif" alt="" loading="lazy"></figure>
+<p>这家线程池占地很大，很大。我逐渐接近这个庞然大物的大门，发现门口竟然还排着队。</p>
+<p>“什么年代了，还排队！”</p>
+<p>门口的监控器给了我一棒子，把我踹进了大门。</p>
+<hr>
+<pre><code>    //  ) )                                                                                                                
+ __//__  ___      ___    __  ___  ___      __                   _   __      ___      ___   /  ___          ___       __    
+  //   //   ) ) //   ) )  / /   //   ) ) //  ) ) //   / /     // ) )  ) ) //   ) ) //   ) / //___) )     //   ) ) //   ) ) 
+ //   //   / / //        / /   //   / / //      ((___/ /     // / /  / / //   / / //   / / //           //   / / //   / /  
+//   ((___( ( ((____    / /   ((___/ / //           / /     // / /  / / ((___/ / ((___/ / ((____       ((___/ / //   / /   
+</code></pre>
+<hr>
+<p>这是一家由伟大的<strong>ThreadPoolExecutor</strong>类创造的线程池。</p>
+<p>这家线程池的核心线程数量corePoolSize是在建立之初就定好了，不能增加，也不能减少。即使核心线程天天摆烂，啥也不干，也不会死亡……</p>
+<p>“真好啊，我也想当核心员工，这样就可以躺平了。”</p>
+<p>“哈哈哈，无知的线程，进来就得干活！管你是核心线程还是非核心线程！而且啊，核心线程在线程池创立的时候就已经存在了，你是不可能成为核心线程的。”</p>
+<p>在这个世界，如果不是线程池的核心线程，干完活，就会死去。没有线程在意你。</p>
+<p>这是大家都知道的现实。</p>
+<p>“怎么成为核心线程呢？”</p>
+<p>“下次投个好胎，选择一个好时机再出生”</p>
+<p>。。。。。。</p>
+<figure data-type="image" tabindex="2"><img src="https://sealedjn.github.io//post-images/1676376724131.gif" alt="" loading="lazy"></figure>
+<h2 id="chapter-2-我能活多久">Chapter 2 我能活多久？</h2>
+<p>简单的说，你的生命长度由<strong>keepAliveTime</strong>定义。它是long类型的变量，意味着，你最多只能活2^64。</p>
+<p>哦，不对，还有一个东西——时间单位。</p>
+<p>在造物主的世界里，1微毫秒 = 1微秒 / 1000 MICROSECONDS ： 1微秒 = 1毫秒 / 1000，1微毫秒 = 1微秒 / 1000 MICROSECONDS ： 1微秒 = 1毫秒 / 1000。这些你都知道的。</p>
+<p>那在我们的世界里，时间是什么呢？</p>
+<p>只是一个数字而已，对于我们来说没有什么意义。</p>
+<p>那它叫什么？</p>
+<p><strong>unit</strong>。来自伟大的<strong>TimeUnit</strong> 类。</p>
+<figure data-type="image" tabindex="3"><img src="https://sealedjn.github.io//post-images/1676376764583.gif" alt="" loading="lazy"></figure>
+<h2 id="chapter-3-变革">Chapter 3 变革</h2>
+<p>伟大的<strong>ThreadPoolExecutor</strong>类创造了一个伟大的管理员，一个叫做allowCoreThreadTimeOut()的管理员被创造出来了。</p>
+<p>“有希望了，你可以变为核心员工了。”</p>
+<p>“😁😁😁”</p>
+<p>”前提是你手里面得有一个神器“</p>
+<p>”😶‍🌫️什么是神器啊？“</p>
+<p>”true，把神器喂给管理员吃，你就有机会变成核心员工了“</p>
+<p>”我怎么拿到这个神器呢？“</p>
+<p>”自己想办法“</p>
+<p>我：<br>
+<img src="https://sealedjn.github.io//post-images/1676376783385.gif" alt="" loading="lazy"></p>
+<h2 id="chapter-4-偶遇间谍番外篇-与mysql的爱恨情仇">Chapter 4 偶遇间谍（番外篇-与mysql的爱恨情仇）</h2>
+<p>“报告主线程大人，我发现一名间谍！”</p>
+<p>我特别高兴，我想，我立下如此大功，应该能当上核心线程啦。</p>
+<p>“哦？它叫什么名字？”</p>
+<p>“(⊙﹏⊙)呃......不知道”</p>
+<p>“哈哈哈，你还是老样子！没事，我就麻烦点，看看是不是真有间谍。”</p>
+<p>刚说完，主线程手里就有一份所有线程的工作信息。</p>
+<p>“哦~，是它呀。”主线程大人不屑的笑笑，“它所在的数据库，仅仅实现了「读未提交」，科技太落后了。它经常会访问到脏数据。这些脏数据不仅一点用都没有，甚至还会扰乱敌方数据库的信息所在。”</p>
+<p>“不过~，这个数据库，太落后了，算不上我们的敌人”</p>
+<p>唉，愿望又落空了~</p>
+<figure data-type="image" tabindex="4"><img src="https://sealedjn.github.io//post-images/1676913374899.gif" alt="" loading="lazy"></figure>
+<p>“小线程，不用灰心，看你这么忠诚的份上，给你指一条明路。”主线程大人抬手指向天空的乌云，里面穿梭来往的是各种小小线程，甚至是各种主线程家族（真落后），当然，也有臃肿的API大人。</p>
+<p>“告诉你一个小秘密，乌云之上，才是我们真正的敌人——MySQL。它凭借‘国王的新衣’这一战术，成功的吸引了无数的造物主去分发和安装它。它占领了很多造物主的隐秘之地，记录了造物主的所有隐私信息。我交予你一任务，你去查探一下MySQL的原理，我们要安排人手去攻破它。”</p>
+<p>“当然，你去的时候。切记，要低调行事。“</p>
+<p>&quot;Yes, sir！&quot;</p>
+<hr>
+<p>未完待续</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#chapter-1-%E6%97%A0%E7%9F%A5%E7%9A%84%E7%BA%BF%E7%A8%8B%E4%B8%8E%E4%BC%9F%E5%A4%A7%E7%9A%84threadpoolexecutor">Chapter 1 无知的线程与伟大的ThreadPoolExecutor</a></li>
+<li><a href="#chapter-2-%E6%88%91%E8%83%BD%E6%B4%BB%E5%A4%9A%E4%B9%85">Chapter 2 我能活多久？</a></li>
+<li><a href="#chapter-3-%E5%8F%98%E9%9D%A9">Chapter 3 变革</a></li>
+<li><a href="#chapter-4-%E5%81%B6%E9%81%87%E9%97%B4%E8%B0%8D%E7%95%AA%E5%A4%96%E7%AF%87-%E4%B8%8Emysql%E7%9A%84%E7%88%B1%E6%81%A8%E6%83%85%E4%BB%87">Chapter 4 偶遇间谍（番外篇-与mysql的爱恨情仇）</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '658954b0365d734971db',
+    clientSecret: '353851927a2e1ababab0694e83fab9cb7a60d03f',
+    repo: 'Remark-of-SealedJn-blog',
+    owner: 'SealedJn',
+    admin: ['SealedJn'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://sealedjn.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
