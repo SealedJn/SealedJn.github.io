@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>死锁 | SealedJn&#39;s Blog</title>
+<meta name="description" content="分享&amp;发电">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://sealedjn.github.io//favicon.ico?v=1695964357393">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://sealedjn.github.io//styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://sealedjn.github.io/">SealedJn&#39;s Blog</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>死锁</h1>
+            <p class="article-meta">
+              2023-09-27
+              
+                <a href="https://sealedjn.github.io/tag/vp_Vq-aTG/" class="badge secondary">
+                  死锁
+                </a>
+              
+            </p>
+            
+            <div class="post-content" v-pre>
+              <h1 id="1-什么是死锁">1 什么是死锁？</h1>
+<p>1、发生在并发中（单线程不会死锁）<br>
+2、互不相让（&gt;=2个线程互相持有对方所需要的资源）</p>
+<p>两个线程造成死锁的情况：<br>
+<img src="https://sealedjn.github.io//post-images/1695813540911.png" alt="" loading="lazy"></p>
+<figure data-type="image" tabindex="1"><img src="https://sealedjn.github.io//post-images/1695813544073.png" alt="" loading="lazy"></figure>
+<p>多个线程造成死锁的情况：<br>
+多个线程的依赖关系是环形的</p>
+<figure data-type="image" tabindex="2"><img src="https://sealedjn.github.io//post-images/1695813558033.png" alt="" loading="lazy"></figure>
+<h1 id="2-死锁的影响">2 死锁的影响</h1>
+<p>死锁的影响在不同的系统中不一样<br>
+取决于系统对死锁的处理能力</p>
+<p>数据库：检测并放弃事务</p>
+<p>JVM：无法自动处理（死锁的处理有很多种，JVM不能做到十全十美）【有工具可以检测】</p>
+<p>几率不高但危害大<br>
+1）一旦发生，多是高并发场景，影响了多个用户<br>
+2）整个系统崩溃、子系统崩溃、性能降低<br>
+注意：压力测试无法找出所有潜在的死锁（死锁与并发量有关系，但是不是确定性的关系，而死锁是随机触发的）</p>
+<h1 id="3发生死锁的例子">3发生死锁的例子</h1>
+<h2 id="31最简单的情况">3.1最简单的情况</h2>
+<pre><code class="language-Java">/**
+ * @description 必定发生死锁的情况
+ */
+public class MustDeadLock implements Runnable {
+    int flag = 1;
+    static Object o1 = new Object();
+    static Object o2 = new Object();
+
+    public static void main(String[] args) throws InterruptedException {
+        MustDeadLock r1 = new MustDeadLock();
+        MustDeadLock r2 = new MustDeadLock();
+        r1.flag = 1;
+        r2.flag = 0;
+        Thread t1 = new Thread(r1);
+        Thread t2 = new Thread(r2);
+
+        t1.start();
+        t2.start();
+    }
+
+    @Override
+    public void run() {
+        System.out.println(&quot;flag = &quot; + flag);
+
+        if (flag == 1) {
+            synchronized (o1) {
+                try {
+                    System.out.println(Thread.currentThread().getName() + &quot; 获得o1&quot;);
+                    Thread.sleep(500);
+                    System.out.println(Thread.currentThread().getName() + &quot; 等待o2&quot;);
+                    synchronized (o2) {
+                        System.out.println(Thread.currentThread().getName() + &quot; 获得o1和o2&quot;);
+                        Thread.sleep(500);
+                    }
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+        }
+        if (flag == 0) {
+            synchronized (o2) {
+                try {
+                    System.out.println(Thread.currentThread().getName() + &quot; 获得o2&quot;);
+                    Thread.sleep(500);
+                    System.out.println(Thread.currentThread().getName() + &quot; 等待o1&quot;);
+                    synchronized (o1) {
+                        System.out.println(Thread.currentThread().getName() + &quot; 获得o1和o2&quot;);
+                        Thread.sleep(500);
+                    }
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+    }
+}
+</code></pre>
+<p>图示：<br>
+<img src="https://sealedjn.github.io//post-images/1695813610488.png" alt="" loading="lazy"></p>
+<p>运行结果：</p>
+<figure data-type="image" tabindex="3"><img src="https://sealedjn.github.io//post-images/1695813679402.png" alt="" loading="lazy"></figure>
+<p>注意看退出信号：Exit code 130（不正常退出）</p>
+<h2 id="32实际生产中的例子">3.2实际生产中的例子</h2>
+<p>转账<br>
+1）需要两把锁（一把锁自己，一把锁对方）<br>
+2）获得两把锁成功，余额&gt;0，扣除转出人，增加收款人的余额，是原子操作</p>
+<figure data-type="image" tabindex="4"><img src="https://sealedjn.github.io//post-images/1695813737733.png" alt="" loading="lazy"></figure>
+<p>3）顺序相反导致死锁</p>
+<figure data-type="image" tabindex="5"><img src="https://sealedjn.github.io//post-images/1695813750244.png" alt="" loading="lazy"></figure>
+<h2 id="33模拟多人随机转账">3.3模拟多人随机转账</h2>
+<p>5万人，依然会发生死锁</p>
+<pre><code class="language-java">
+import java.util.Random;
+
+/**
+ * 多人同时转账 依然很危险
+ */
+public class MultiTransferMoney {
+    private static final int NUM_ACCOUNTS = 50;
+    private static final int NUM_MONEY = 1000;
+    private static final int NUM_ITERATIONS = 1000000;
+    private static final int NUM_THREAD = 20;
+
+    public static void main(String[] args) {
+        Random random = new Random();
+        TransferMoney.Account[] accounts = new TransferMoney.Account[NUM_ACCOUNTS];
+        for (int i = 0; i &lt; accounts.length; i++) {
+            accounts[i] = new TransferMoney.Account(i, NUM_MONEY);
+        }
+        class TransferThread extends Thread {
+            @Override
+            public void run() {
+                for (int i = 0; i &lt; NUM_ITERATIONS; i++) {
+                    int fromAcct = random.nextInt(NUM_ACCOUNTS);
+                    int toAcct = random.nextInt(NUM_ACCOUNTS);
+                    int amount = random.nextInt(NUM_MONEY);
+                    if (fromAcct != toAcct) {
+                        TransferMoney.transferMoney(accounts[fromAcct], accounts[toAcct], amount);
+                    }
+                }
+                System.out.println(&quot;==========运行结束==========&quot;);
+            }
+        }
+        // 创建20个线程
+        for (int i = 0; i &lt; NUM_THREAD; i++) {
+            new TransferThread().start();
+        }
+    }
+}
+
+</code></pre>
+<h1 id="4-死锁的4个必要条件">4 死锁的4个必要条件</h1>
+<p>（1）互斥<br>
+（2）请求与保持（不释放）<br>
+（3）不剥夺（没有裁判能够剥夺某个线程对资源的保持）<br>
+（4）循环等待（循环依赖）</p>
+<h2 id="1jstack分析死锁">1）jstack分析死锁</h2>
+<p>1、找到java程序的pid（jps）<br>
+2、${JAVA_HOME}/bin/jstack -l pid</p>
+<figure data-type="image" tabindex="6"><img src="https://sealedjn.github.io//post-images/1695813826389.png" alt="" loading="lazy"></figure>
+<p>分析“多人转账”</p>
+<figure data-type="image" tabindex="7"><img src="https://sealedjn.github.io//post-images/1695813842289.png" alt="" loading="lazy"></figure>
+<h2 id="2-threadmxbean代码演示裁判定位并修复死锁">2） ThreadMXBean代码演示（裁判，定位并修复死锁）</h2>
+<p>（1）ManagementFactory.getThreadMXBean()<br>
+（2）打印所有死锁的线程信息</p>
+<pre><code class="language-java">        
+import java.lang.management.ManagementFactory;
+import java.lang.management.ThreadInfo;
+import java.lang.management.ThreadMXBean;
+
+/**
+ * 用ThreadMXBean检测死锁
+ */
+public class ThreadMXBeanDetection implements Runnable {
+
+    int flag = 1;
+    static Object o1 = new Object();
+    static Object o2 = new Object();
+
+    public static void main(String[] args) throws InterruptedException {
+        ThreadMXBeanDetection r1 = new ThreadMXBeanDetection();
+        ThreadMXBeanDetection r2 = new ThreadMXBeanDetection();
+        r1.flag = 1;
+        r2.flag = 0;
+        Thread t1 = new Thread(r1);
+        Thread t2 = new Thread(r2);
+
+        t1.start();
+        t2.start();
+
+        Thread.sleep(1000);
+        ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
+        long[] deadlockedThreads = threadMXBean.findDeadlockedThreads();
+        if (deadlockedThreads != null &amp;&amp; deadlockedThreads.length &gt; 0) {
+            for (int i = 0; i &lt; deadlockedThreads.length; i++) {
+                ThreadInfo threadInfo = threadMXBean.getThreadInfo(deadlockedThreads[i]);
+                System.out.println(&quot;发现死锁&quot; + threadInfo.getThreadName());
+            }
+        }
+    }
+
+    @Override
+    public void run() {
+        System.out.println(&quot;flag = &quot; + flag);
+
+        if (flag == 1) {
+            synchronized (o1) {
+                try {
+                    System.out.println(Thread.currentThread().getName() + &quot; 获得o1&quot;);
+                    Thread.sleep(500);
+                    System.out.println(Thread.currentThread().getName() + &quot; 等待o2&quot;);
+                    synchronized (o2) {
+                        System.out.println(Thread.currentThread().getName() + &quot; 获得o1和o2&quot;);
+                        Thread.sleep(500);
+                    }
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+        }
+        if (flag == 0) {
+            synchronized (o2) {
+                try {
+                    System.out.println(Thread.currentThread().getName() + &quot; 获得o2&quot;);
+                    Thread.sleep(500);
+                    System.out.println(Thread.currentThread().getName() + &quot; 等待o1&quot;);
+                    synchronized (o1) {
+                        System.out.println(Thread.currentThread().getName() + &quot; 获得o1和o2&quot;);
+                        Thread.sleep(500);
+                    }
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+    }
+}
+
+</code></pre>
+<p>5.修复死锁的策略<br>
+1）线上<br>
+1、防患于未然（不可提前预料、蔓延速度快、危害大）<br>
+2、保持案发现场，立刻重启服务器<br>
+3、保证线上服务的安全，根据保存的案发现场，排查死锁，修改代码<br>
+2）线下<br>
+1、避免策略（哲学家就餐-换手、转账换序）<br>
+思路：避免相反的获取锁的顺序<br>
+（锁获取的顺序不影响该策略的执行）</p>
+<figure data-type="image" tabindex="8"><img src="https://sealedjn.github.io//post-images/1695813971463.png" alt="" loading="lazy"></figure>
+<p>如果hashCode相同，则需要加时赛</p>
+<figure data-type="image" tabindex="9"><img src="https://sealedjn.github.io//post-images/1695814291620.png" alt="" loading="lazy"></figure>
+<p>如果数据库，则主键用来避免死锁更好</p>
+<p>2、检测与恢复策略（有死锁，则剥夺）<br>
+3、鸵鸟策略（忽略概率低的死锁，出现死锁再人工修复）</p>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://sealedjn.github.io/post/hong-hei-shu-20-zhang-tu-shen-ru-li-jie-shu-de-cha-ru-he-shan-chu/">
+                <h3 class="post-title">
+                  红黑树——20张图深入理解树的插入和删除
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+          
+            <div class="paper" data-aos="fade-in">
+              <div id="gitalk-container"></div>
+            </div>
+          
+
+          
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://sealedjn.github.io//images/avatar.png?v=1695964357393" class="no-responsive avatar">
+    <div class="text-muted">分享&发电</div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://sealedjn.github.io/post/shi-ji-gong-cheng-zhong-ru-he-bi-mian-si-suo/">实际工程中如何避免死锁</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://sealedjn.github.io/post/si-suo/">死锁</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://sealedjn.github.io/post/hong-hei-shu-20-zhang-tu-shen-ru-li-jie-shu-de-cha-ru-he-shan-chu/">红黑树——20张图深入理解树的插入和删除</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://sealedjn.github.io/post/leetcodedp337ceng-xu-bian-li-huan-shi-hou-xu-bian-li/">[Leetcode]DP337：层序遍历？还是后序遍历？</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://sealedjn.github.io/post/chatgpt-neng-gou-jie-jue-de-wen-ti/">ChatGPT能够解决的问题</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://sealedjn.github.io/post/afdx-wang-luo-dou-dong-de-gai-nian-he-li-jie/">AFDX网络抖动的概念和理解</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://sealedjn.github.io/post/duan-dao-duan-shu-ju-bao-yan-chi-yu-ce-lun-wen-shou-ji-chatgpt-wen-da/">端到端数据包延迟预测【论文收集+chatgpt问答】</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://sealedjn.github.io/post/chatgptnewbing-guo-nei-shi-yong-wen-ti-something-went-wrong-please-try-it-agin/">ChatGPT+NewBing 国内试用（问题：Something went Wrong, Please try it agin)</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://sealedjn.github.io/post/hei-ping-guo-hackstoinsh-wo-yu-ta-de-xiang-feng-xiang-shi-xiang-zhi/">黑苹果Hackstoinsh-我与他的相逢、相识、相知</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://sealedjn.github.io/post/xian-cheng-chi-shang-de-yi-ming-yuan-gong/">线程池上的一名员工</a>
+            </li>
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://sealedjn.github.io/tag/vp_Vq-aTG/" class="badge ">
+          死锁
+        </a>
+      
+        <a href="https://sealedjn.github.io/tag/J-o_TImAQ/" class="badge ">
+          黑苹果
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://sealedjn.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '658954b0365d734971db',
+        clientSecret: '353851927a2e1ababab0694e83fab9cb7a60d03f',
+        repo: 'Remark-of-SealedJn-blog',
+        owner: 'SealedJn',
+        admin: ['SealedJn'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>

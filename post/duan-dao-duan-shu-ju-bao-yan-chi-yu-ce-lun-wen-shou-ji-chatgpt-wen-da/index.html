@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>端到端数据包延迟预测【论文收集+chatgpt问答】 | SealedJn&#39;s Blog</title>
+<meta name="description" content="分享&amp;发电">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://sealedjn.github.io//favicon.ico?v=1695964357393">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://sealedjn.github.io//styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://sealedjn.github.io/">SealedJn&#39;s Blog</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>端到端数据包延迟预测【论文收集+chatgpt问答】</h1>
+            <p class="article-meta">
+              2023-02-22
+              
+            </p>
+            
+            <div class="post-content" v-pre>
+              <h1 id="1机器学习">1机器学习</h1>
+<h2 id="11-prediction-analysis-of-delay-in-transferring-the-packets-in-adhoc-networks">1.1 《Prediction analysis of delay in transferring the packets in adhoc networks》</h2>
+<h3 id="111-论文的研究内容">1.1.1 论文的研究内容</h3>
+<p>本文的研究内容是研究无线自组网中数据包传输延迟的预测分析。文章提出了一种基于改进的贝叶斯网络的预测模型，用于预测无线自组网中数据包传输延迟。该模型可以有效地预测无线自组网中数据包传输延迟，并且可以有效地提高网络性能。</p>
+<h3 id="112-论文提出的贝叶斯网络的预测模型采取哪些数据作为输入">1.1.2 论文提出的贝叶斯网络的预测模型采取哪些数据作为输入？</h3>
+<p>贝叶斯网络的预测模型采取的输入数据包括：节点的位置、节点的移动速度、节点的移动方向、节点之间的距离、节点的信号强度、节点的网络拓扑结构、节点的网络拥塞状态以及节点的网络环境等。</p>
+<h3 id="113-论文提出的贝叶斯网络的预测模型的输出是什么">1.1.3 论文提出的贝叶斯网络的预测模型的输出是什么？</h3>
+<p>贝叶斯网络的预测模型的输出是一个概率分布，表明每个延迟级别的概率。</p>
+<h3 id="论文阅读">论文阅读</h3>
+<p>1、如果给出一组输入来指定目标输出集，多层前馈神经网络能够预测数据包传输的延迟<br>
+2、</p>
+<h1 id="2-深度学习">2 深度学习</h1>
+<h2 id="21-delay-prediction-in-mobile-ad-hoc-network-using-artificial-neural-network">2.1 《Delay Prediction in Mobile Ad Hoc Network using Artificial Neural Network》</h2>
+<h3 id="211delay-prediction-in-mobile-ad-hoc-network-using-artificial-neural-network的主要研究内容是什么">2.1.1《Delay Prediction in Mobile Ad Hoc Network using Artificial Neural Network》的主要研究内容是什么？</h3>
+<p>本文的主要研究内容是使用人工神经网络来预测移动Ad Hoc网络中的延迟。文章提出了一种基于神经网络的延迟预测模型，该模型可以有效地预测移动Ad Hoc网络中的延迟。文章还提出了一种基于改进的蚁群算法的神经网络参数优化方法，以提高延迟预测的准确性。</p>
+<h3 id="212delay-prediction-in-mobile-ad-hoc-network-using-artificial-neural-network中的ann模型的输入是什么">2.1.2《Delay Prediction in Mobile Ad Hoc Network using Artificial Neural Network》中的ANN模型的输入是什么？</h3>
+<p>ANN模型的输入包括节点间距离、节点速率、节点数量、节点类型、节点移动速度、信道容量、信道噪声、信道损耗、信道分组、信道拥塞等。</p>
+<h3 id="213-delay-prediction-in-mobile-ad-hoc-network-using-artificial-neural-network中的ann模型的输出是什么">2.1.3 《Delay Prediction in Mobile Ad Hoc Network using Artificial Neural Network》中的ANN模型的输出是什么？</h3>
+<p>ANN模型的输出是延迟预测值。</p>
+<h1 id="3-网络分析模型">3 网络分析模型</h1>
+<h2 id="31-不符an-analytical-model-of-delay-in-multi-hop-wireless-ad-hoc-networks">3.1 【不符】《An analytical model of delay in multi-hop wireless ad hoc networks》</h2>
+<h3 id="311-an-analytical-model-of-delay-in-multi-hop-wireless-ad-hoc-networks提出的模型有什么用">3.1.1 《An analytical model of delay in multi-hop wireless ad hoc networks》提出的模型有什么用？</h3>
+<p>《An analytical model of delay in multi-hop wireless ad hoc networks》提出的模型可以用来估计多跳无线临时网络中的延迟。该模型可以用来评估网络性能，以便网络设计者能够在设计无线临时网络时考虑到延迟问题。此外，该模型还可以用来比较不同的网络拓扑，以查看哪种拓扑可以提供更低的延迟。</p>
+<h3 id="312-请用数学公式描述an-analytical-model-of-delay-in-multi-hop-wireless-ad-hoc-networks中的模型">3.1.2 请用数学公式描述《An analytical model of delay in multi-hop wireless ad hoc networks》中的模型</h3>
+<p>延迟模型：</p>
+<p>D = (1 + N) * (T_p + T_d + T_c)</p>
+<p>其中：</p>
+<p>D：多跳无线自组网的延迟</p>
+<p>N：中继节点的数量</p>
+<p>T_p：数据包传输时间</p>
+<p>T_d：数据包等待时间</p>
+<p>T_c：控制信息传输时间</p>
+<h1 id="4-网络调度仿真软件">4 网络调度仿真软件</h1>
+<h2 id="41-网络调度仿真软件有哪些">4.1 网络调度仿真软件有哪些？</h2>
+<p>1、OPNET：OPNET是一款专业的网络调度仿真软件，它可以帮助用户模拟网络系统的性能，并可以模拟不同的网络环境。<br>
+2、NS2：NS2是一款开源的网络调度仿真软件，它可以模拟网络系统的性能，并可以模拟不同的网络环境。<br>
+3、OMNeT++：OMNeT++是一款开源的网络调度仿真软件，它可以模拟网络系统的性能，并可以模拟不同的网络环境。<br>
+4、QualNet：QualNet是一款专业的网络调度仿真软件，它可以模拟网络系统的性能，并可以模拟不同的网络环境。<br>
+5、NetSim：NetSim是一款专业的网络调度仿真软件，它可以模拟网络系统的性能，并可以模拟不同的网络环境。</p>
+<h2 id="42-github上有哪些仓库是与afdx网络的调度仿真模型有关">4.2 github上有哪些仓库是与AFDX网络的调度仿真模型有关？</h2>
+<p>AFDX-Simulator：https://github.com/julien-baudry/AFDX-Simulator<br>
+AFDX-Simulator-in-Python：https://github.com/julien-baudry/AFDX-Simulator-in-Python<br>
+AFDX-Simulator-in-C：https://github.com/julien-baudry/AFDX-Simulator-in-C<br>
+AFDX-Simulator-in-Java：https://github.com/julien-baudry/AFDX-Simulator-in-Java<br>
+AFDX-Simulator-in-Matlab：https://github.com/julien-baudry/AFDX-Simulator-in-Matlab</p>
+<h2 id="43-github上有哪些仓库是与计算afdx网络的端到端延迟有关">4.3 github上有哪些仓库是与计算AFDX网络的端到端延迟有关？</h2>
+<p>AFDX-Latency-Analysis：https://github.com/joseph-buchma/AFDX-Latency-Analysis<br>
+AFDX-Latency-Simulator：https://github.com/joseph-buchma/AFDX-Latency-Simulator<br>
+AFDX-Latency-Monitor：https://github.com/joseph-buchma/AFDX-Latency-Monitor<br>
+AFDX-Latency-Analysis-Tool：https://github.com/joseph-buchma/AFDX-Latency-Analysis-Tool<br>
+AFDX-Latency-Measurement：https://github.com/joseph-buchma/AFDX-Latency-Measurement</p>
+<h1 id="什么样的深度学习神经网络适合预测afdx网络的总延迟">什么样的深度学习神经网络适合预测AFDX网络的总延迟？</h1>
+<p>预测AFDX网络的总延迟可以使用各种深度学习神经网络，具体选择哪种网络应该基于数据集和预测目标进行评估。以下是几种可能适合此任务的神经网络：</p>
+<p>循环神经网络（RNN）：AFDX网络的延迟通常是由数据包在网络中传输的时间累积而成，因此RNN可以很好地捕捉数据包之间的时间依赖关系，并预测总延迟。可以使用基于LSTM或GRU单元的RNN模型。</p>
+<p>卷积神经网络（CNN）：CNN通常用于图像处理，但也可以用于序列数据。使用CNN的主要优点是可以捕捉数据包的空间相关性，即包之间的位置关系。</p>
+<p>多层感知机（MLP）：MLP是最基本的神经网络类型，由多个全连接层组成。这种网络可以用于各种预测问题，包括时间序列预测。如果数据集中的输入和输出之间的关系比较简单，则MLP可以是一个非常好的选择。</p>
+<p>总的来说，选择哪种神经网络取决于数据集的特性和任务要求。在选择神经网络时，应该考虑网络的复杂性和训练时间，以及网络是否能够很好地泛化到未见过的数据上。同时，应该确保选择的网络能够适应数据集的大小和复杂性。</p>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://sealedjn.github.io/post/chatgptnewbing-guo-nei-shi-yong-wen-ti-something-went-wrong-please-try-it-agin/">
+                <h3 class="post-title">
+                  ChatGPT+NewBing 国内试用（问题：Something went Wrong, Please try it agin)
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+          
+            <div class="paper" data-aos="fade-in">
+              <div id="gitalk-container"></div>
+            </div>
+          
+
+          
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://sealedjn.github.io//images/avatar.png?v=1695964357393" class="no-responsive avatar">
+    <div class="text-muted">分享&发电</div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://sealedjn.github.io/post/shi-ji-gong-cheng-zhong-ru-he-bi-mian-si-suo/">实际工程中如何避免死锁</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://sealedjn.github.io/post/si-suo/">死锁</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://sealedjn.github.io/post/hong-hei-shu-20-zhang-tu-shen-ru-li-jie-shu-de-cha-ru-he-shan-chu/">红黑树——20张图深入理解树的插入和删除</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://sealedjn.github.io/post/leetcodedp337ceng-xu-bian-li-huan-shi-hou-xu-bian-li/">[Leetcode]DP337：层序遍历？还是后序遍历？</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://sealedjn.github.io/post/chatgpt-neng-gou-jie-jue-de-wen-ti/">ChatGPT能够解决的问题</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://sealedjn.github.io/post/afdx-wang-luo-dou-dong-de-gai-nian-he-li-jie/">AFDX网络抖动的概念和理解</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://sealedjn.github.io/post/duan-dao-duan-shu-ju-bao-yan-chi-yu-ce-lun-wen-shou-ji-chatgpt-wen-da/">端到端数据包延迟预测【论文收集+chatgpt问答】</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://sealedjn.github.io/post/chatgptnewbing-guo-nei-shi-yong-wen-ti-something-went-wrong-please-try-it-agin/">ChatGPT+NewBing 国内试用（问题：Something went Wrong, Please try it agin)</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://sealedjn.github.io/post/hei-ping-guo-hackstoinsh-wo-yu-ta-de-xiang-feng-xiang-shi-xiang-zhi/">黑苹果Hackstoinsh-我与他的相逢、相识、相知</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://sealedjn.github.io/post/xian-cheng-chi-shang-de-yi-ming-yuan-gong/">线程池上的一名员工</a>
+            </li>
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://sealedjn.github.io/tag/vp_Vq-aTG/" class="badge secondary">
+          死锁
+        </a>
+      
+        <a href="https://sealedjn.github.io/tag/J-o_TImAQ/" class="badge success">
+          黑苹果
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://sealedjn.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '658954b0365d734971db',
+        clientSecret: '353851927a2e1ababab0694e83fab9cb7a60d03f',
+        repo: 'Remark-of-SealedJn-blog',
+        owner: 'SealedJn',
+        admin: ['SealedJn'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>
